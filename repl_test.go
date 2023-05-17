@@ -23,9 +23,7 @@ func TestCleanInput(t *testing.T) {
 				"hello",
 				"world",
 			},
-
 		},
-		
 	}
 
 
