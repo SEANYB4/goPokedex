@@ -1,8 +1,19 @@
 package main
 
+import "github.com/SEANYB4/goPokedex/internal/pokeapi"
 
+type config struct {
+	pokeapiClient pokeapi.Client
+	nextLocationAreaURL *string
+	prevLocationAreaURL *string
+
+}
 
 func main() {
-	startRepl()
+
+	cfg := config {
+		pokeapiClient : pokeapi.NewClient(),
+	}
+	startRepl(&cfg)
 	
 }

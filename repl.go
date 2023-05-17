@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func startRepl() {
+func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -22,25 +22,21 @@ func startRepl() {
 				continue
 			}
 
-			command := cleaned[0]
+			commandName := cleaned[0]
 
-			switch command {
+			availableCommands := getCommands()
 
-			case "exit":
-				os.Exit(0)
+			command, ok := availableCommands[commandName]
 
-			case "help":
-				fmt.Println("Welcome to the Pokedex help menu!")
-				fmt.Println("Here are the available commands:")
-				fmt.Println("help - get help")
-				fmt.Println("exit - exit the program")
-				fmt.Println("")
-
-			default:
+			if !ok {
 				fmt.Println("Invalid command")
-				
+				continue
 			}
 			
+			err := command.callback(cfg)
+			if err != nil {
+				fmt.Println(err)
+			}
 	
 		}
 }
@@ -51,7 +47,38 @@ type cliCommand struct {
 
 	name string
 	description string
-	
+	callback func(*config) error
+
+}
+
+
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand {
+
+		"help" : {
+			name: "help",
+			description: "Prints the help menu",
+			callback: callbackHelp,
+		},
+		"exit" : {
+			name: "exit",
+			description: "Turns off the Pokedex",
+			callback: callbackExit,
+		},
+
+		"map" : {
+			name: "map",
+			description: "Displays available locations to travel to",
+			callback: callbackMap,
+		},
+		"mapb" : {
+			name: "mapb",
+			description: "Displays previous available locations to travel to",
+			callback: callbackMapB,
+		},
+
+
+	}
 }
 
 
