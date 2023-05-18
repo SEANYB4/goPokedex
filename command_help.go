@@ -6,7 +6,7 @@ import (
 )
 
 
-func callbackHelp(cfg *config) error {
+func callbackHelp(cfg *config, args ...string) error {
 
 		fmt.Println("Welcome to the Pokedex help menu!")
 		fmt.Println("Here are the available commands:")
