@@ -11,10 +11,12 @@ func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
-			fmt.Println(" >")
+			fmt.Println()
+			fmt.Print(" >")
 			scanner.Scan()
 			text := scanner.Text()
 			cleaned := cleanInput(text)
+			fmt.Println()
 
 
 			if len(cleaned) == 0 {

@@ -17,7 +17,7 @@ func callbackPokedex(cfg *config, args ...string) error {
 
 	for _, pokemon := range cfg.caughtPokemon {
 
-		fmt.Println(pokemon)
+		fmt.Println(pokemon.Name)
 	}
 
 
